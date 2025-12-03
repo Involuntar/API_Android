@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginTop="25dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="15dp">
+
+        <GridLayout
+            android:id="@+id/calcGrid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:layout_weight="1">
+            <EditText
+                android:id="@+id/mathInput"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:hint="Математика"
+                android:layout_columnWeight="1"
+                android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/rusInput"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:hint="Русский язык"
+                android:layout_columnWeight="1"
+                android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/socInput"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:hint="Обществознание"
+                android:layout_columnWeight="1"
+                android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/itkInput"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:hint="Информатика"
+                android:layout_columnWeight="1"
+                android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/chemInput"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:hint="Химия"
+                android:layout_columnWeight="1"
+                android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/physInput"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:hint="Физика"
+                android:layout_columnWeight="1"
+                android:textSize="15dp"/>
+            <EditText
+                android:id="@+id/enInput"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:hint="Иностранный язык"
+                android:layout_columnWeight="1"
+                android:textSize="15dp"/>
+        </GridLayout>
+
+        <Button
+            android:id="@+id/getButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Проверить направления"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
