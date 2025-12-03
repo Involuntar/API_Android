@@ -49,16 +49,16 @@ public class MainActivity extends AppCompatActivity {
         errorTextView = findViewById(R.id.errorTextView);
 
         getButton.setOnClickListener(new View.OnClickListener() {
-            final String mathValue = mathInput.getText().toString();
-            final String rusValue = rusInput.getText().toString();
-            final String itkValue = itkInput.getText().toString();
-            final String chemValue = chemInput.getText().toString();
-            final String socValue = socInput.getText().toString();
-            final String physValue = physInput.getText().toString();
-            final String enValue = enInput.getText().toString();
-
             @Override
             public void onClick(View v) {
+                final String mathValue = mathInput.getText().toString();
+                final String rusValue = rusInput.getText().toString();
+                final String itkValue = itkInput.getText().toString();
+                final String chemValue = chemInput.getText().toString();
+                final String socValue = socInput.getText().toString();
+                final String physValue = physInput.getText().toString();
+                final String enValue = enInput.getText().toString();
+
                 if ((!mathValue.isEmpty() &&
                         !rusValue.isEmpty() &&
                         !itkValue.isEmpty() &&
@@ -66,14 +66,13 @@ public class MainActivity extends AppCompatActivity {
                         !socValue.isEmpty() &&
                         !physValue.isEmpty() &&
                         !enValue.isEmpty()
-
-                ) && (Integer.parseInt(mathValue) > 0 && Integer.parseInt(mathValue) < 100 &&
-                        Integer.parseInt(rusValue) > 0 && Integer.parseInt(rusValue) < 100 &&
-                        Integer.parseInt(itkValue) >= 0 && Integer.parseInt(itkValue) < 100 &&
-                        Integer.parseInt(chemValue) >= 0 && Integer.parseInt(chemValue) < 100 &&
-                        Integer.parseInt(socValue) >= 0 && Integer.parseInt(socValue) < 100 &&
-                        Integer.parseInt(physValue) >= 0 && Integer.parseInt(physValue) < 100 &&
-                        Integer.parseInt(enValue) >= 0 && Integer.parseInt(enValue) < 100
+                ) && (Integer.parseInt(mathValue) > 0 && Integer.parseInt(mathValue) <= 100 &&
+                        Integer.parseInt(rusValue) > 0 && Integer.parseInt(rusValue) <= 100 &&
+                        Integer.parseInt(itkValue) >= 0 && Integer.parseInt(itkValue) <= 100 &&
+                        Integer.parseInt(chemValue) >= 0 && Integer.parseInt(chemValue) <= 100 &&
+                        Integer.parseInt(socValue) >= 0 && Integer.parseInt(socValue) <= 100 &&
+                        Integer.parseInt(physValue) >= 0 && Integer.parseInt(physValue) <= 100 &&
+                        Integer.parseInt(enValue) >= 0 && Integer.parseInt(enValue) <= 100
                 )) {
                     OkHttpHandler handler = new OkHttpHandler(
                             mathValue,
