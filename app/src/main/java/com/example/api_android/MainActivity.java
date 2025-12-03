@@ -3,20 +3,12 @@ package com.example.api_android;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +16,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -32,11 +23,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.BufferedSink;
 
 public class MainActivity extends AppCompatActivity {
     Button getButton;
-    EditText
+    EditText mathInput, rusInput, itkInput, chemInput, socInput, physInput, enInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,36 +35,60 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getButton = findViewById(R.id.getButton);
+
+        mathInput = findViewById(R.id.mathInput);
+        rusInput = findViewById(R.id.rusInput);
+        itkInput = findViewById(R.id.itkInput);
+        chemInput = findViewById(R.id.chemInput);
+        socInput = findViewById(R.id.socInput);
+        physInput = findViewById(R.id.physInput);
+        enInput = findViewById(R.id.enInput);
+
         getButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OkHttpHandler handler = new OkHttpHandler();
+                OkHttpHandler handler = new OkHttpHandler(
+                        mathInput.getText().toString(),
+                        rusInput.getText().toString(),
+                        itkInput.getText().toString(),
+                        chemInput.getText().toString(),
+                        socInput.getText().toString(),
+                        physInput.getText().toString(),
+                        enInput.getText().toString());
                 handler.execute();
             }
         });
     }
 
     public class OkHttpHandler extends AsyncTask<Void, Void, List<Item>> {
+        private final String mathValue;
+        private final String rusValue;
+        private final String itkValue;
+        private final String chemValue;
+        private final String socValue;
+        private final String physValue;
+        private final String enValue;
+
+        public OkHttpHandler(String mathValue, String rusValue, String itkValue, String chemValue, String socValue, String physValue, String enValue) {
+            this.mathValue = mathValue;
+            this.rusValue = rusValue;
+            this.itkValue = itkValue;
+            this.chemValue = chemValue;
+            this.socValue = socValue;
+            this.physValue = physValue;
+            this.enValue = enValue;
+        }
+
         @Override
         protected List<Item> doInBackground(Void... voids) {
             Request.Builder builder = new Request.Builder();
 
             MediaType JSON = MediaType.get("application/json; charset=utf-8");
-            String jsonRequest = "{\n" +
-                    "  \"math\": 100,\n" +
-                    "  \"inform\": 100,\n" +
-                    "  \"social\": 100,\n" +
-                    "  \"rus\": 100,\n" +
-                    "  \"chemistry\": 100,\n" +
-                    "  \"physics\": 100,\n" +
-                    "  \"eng\": 100,\n" +
-                    "  \"geo\": 100\n" +
-                    "}";
+            String req = "{\"math\":%s,\"inform\":%s,\"social\":%s,\"rus\":%s,\"chemistry\":%s,\"physics\":%s,\"eng\":%s,\"geo\":0}";
+            String jsonRequest = String.format(req, mathValue, itkValue, socValue, rusValue, chemValue, physValue, enValue);
             RequestBody body = RequestBody.create(jsonRequest, JSON);
 
-            Request request = builder.url("https://nti.urfu.ru/ege-calc/json")
-                    .post(body)
-                    .build();
+            Request request = builder.url("https://nti.urfu.ru/ege-calc/json").post(body).build();
             OkHttpClient client = new OkHttpClient().newBuilder().build();
 
             try {
