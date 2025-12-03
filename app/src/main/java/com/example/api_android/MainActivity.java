@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
     Button getButton;
     EditText mathInput, rusInput, itkInput, chemInput, socInput, physInput, enInput;
+    TextView errorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +46,47 @@ public class MainActivity extends AppCompatActivity {
         physInput = findViewById(R.id.physInput);
         enInput = findViewById(R.id.enInput);
 
+        errorTextView = findViewById(R.id.errorTextView);
+
         getButton.setOnClickListener(new View.OnClickListener() {
+            final String mathValue = mathInput.getText().toString();
+            final String rusValue = rusInput.getText().toString();
+            final String itkValue = itkInput.getText().toString();
+            final String chemValue = chemInput.getText().toString();
+            final String socValue = socInput.getText().toString();
+            final String physValue = physInput.getText().toString();
+            final String enValue = enInput.getText().toString();
+
             @Override
             public void onClick(View v) {
-                OkHttpHandler handler = new OkHttpHandler(
-                        mathInput.getText().toString(),
-                        rusInput.getText().toString(),
-                        itkInput.getText().toString(),
-                        chemInput.getText().toString(),
-                        socInput.getText().toString(),
-                        physInput.getText().toString(),
-                        enInput.getText().toString());
-                handler.execute();
+                if ((!mathValue.isEmpty() &&
+                        !rusValue.isEmpty() &&
+                        !itkValue.isEmpty() &&
+                        !chemValue.isEmpty() &&
+                        !socValue.isEmpty() &&
+                        !physValue.isEmpty() &&
+                        !enValue.isEmpty()
+
+                ) && (Integer.parseInt(mathValue) > 0 && Integer.parseInt(mathValue) < 100 &&
+                        Integer.parseInt(rusValue) > 0 && Integer.parseInt(rusValue) < 100 &&
+                        Integer.parseInt(itkValue) >= 0 && Integer.parseInt(itkValue) < 100 &&
+                        Integer.parseInt(chemValue) >= 0 && Integer.parseInt(chemValue) < 100 &&
+                        Integer.parseInt(socValue) >= 0 && Integer.parseInt(socValue) < 100 &&
+                        Integer.parseInt(physValue) >= 0 && Integer.parseInt(physValue) < 100 &&
+                        Integer.parseInt(enValue) >= 0 && Integer.parseInt(enValue) < 100
+                )) {
+                    OkHttpHandler handler = new OkHttpHandler(
+                            mathValue,
+                            rusValue,
+                            itkValue,
+                            chemValue,
+                            socValue,
+                            physValue,
+                            enValue);
+                    handler.execute();
+                } else {
+                    errorTextView.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
